@@ -5,7 +5,6 @@ imap <c-d> <c-o>dd
 imap <cr> <cr><left><right>
 map o o<left><right>
 imap <c-]> {<cr>}<c-o>O<left><right>
-noremap <f6> =a{
 syn on
 colo desert
 filetype indent on
@@ -13,8 +12,15 @@ se ru nu ar sw=4 ts=4 softtabstop=4 noswf et sta nowrap ww=<,>,[,] gfn=Consolas:
 se hlsearch
 autocmd BufEnter * lcd %:p:h
 map <c-t> :tabnew<CR>
-map <f5> :call Ubuntu_Run()<CR><CR>
+
 map<f1> :normal ^<cr>
+map <f2> :call SetTitle()<CR>Gkkk
+map<f4> :call AddComment()<cr>
+map <f5> :call Ubuntu_Run()<CR><CR>
+noremap <f6> =a{
+map<F9> :resize +1<cr>
+map<F10> :resize -1<cr>
+
 func Run()
     exec 'update'
     if (&filetype == 'cpp')
@@ -77,7 +83,6 @@ func Ubuntu_Run()
     endif
 endfunc
 
-map <f2> :call SetTitle()<CR>Gkkk
 func SetTitle()
     if (&filetype == 'cpp')
         normal ggdG
@@ -86,7 +91,7 @@ func SetTitle()
         let l = l + 1 | call setline(l, ' * Author:heroming')
         "let l = l + 1 | call setline(l, ' * Type:')
         let l = l + 1 | call setline(l, ' * File:'.expand('%'))
-        let l = l + 1 | call setline(l, ' * Time:'.strftime('%c'))
+        let l = l + 1 | call setline(l, ' * Time:'.strftime('%Y/%m/%d %I:%M:%S'))
         let l = l + 1 | call setline(l, ' */')
         let l = l + 1 | call setline(l, '#include <vector>')
         let l = l + 1 | call setline(l, '#include <list>')
@@ -160,7 +165,7 @@ func SetTitle()
         let l = l + 1 | call setline(l, "'''")
         let l = l + 1 | call setline(l, ' * Author:heroming')
         let l = l + 1 | call setline(l, ' * File:'.expand('%'))
-        let l = l + 1 | call setline(l, ' * Time:'.strftime('%c'))
+        let l = l + 1 | call setline(l, ' * Time:'.strftime('%Y/%m/%d %I:%M:%S'))
         let l = l + 1 | call setline(l, "'''")
         let l = l + 1 | call setline(l, '')
         let l = l + 1 | call setline(l, "if __name__ == '__main__' :")
@@ -171,7 +176,7 @@ func SetTitle()
         let l = l + 1 | call setline(l, '/*')
         let l = l + 1 | call setline(l, ' * Author:heroming')
         let l = l + 1 | call setline(l, ' * File:'.expand('%'))
-        let l = l + 1 | call setline(l, ' * Time:'.strftime('%c'))
+        let l = l + 1 | call setline(l, ' * Time:'.strftime('%Y/%m/%d %I:%M:%S'))
         let l = l + 1 | call setline(l, ' */')
         let l = l + 1 | call setline(l, 'import java.io.*;')
         let l = l + 1 | call setline(l, 'import java.util.*;')
@@ -188,7 +193,7 @@ func SetTitle()
     endif
     exec 'update'
 endfunc
-map<f4> :call AddComment()<cr>
+
 func AddComment()
     if (&filetype == 'cpp')
         if matchstr(getline('.'), '[^ ]') == '/'
