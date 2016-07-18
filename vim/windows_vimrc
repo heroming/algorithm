@@ -84,6 +84,7 @@ func SetTitle()
         let l = l + 1 | call setline(l, '#include <cstdlib>')
         let l = l + 1 | call setline(l, '#include <cstring>')
         let l = l + 1 | call setline(l, '#include <ctime>')
+        let l = l + 1 | call setline(l, '#include <unordered_map>')
         let l = l + 1 | call setline(l, 'using namespace std;')
         
         let l = l + 1 | call setline(l, '')
