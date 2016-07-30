@@ -58,9 +58,9 @@ func Ubuntu_Run()
     exec 'update'
     if (&filetype == 'cpp')
         if filereadable(expand('%<').'.in')
-            exec "!xterm -e \"g++ %<.cpp -Wall -o %< && time ./%< < %<.in; read n\""
+            exec "!xterm -e \"g++ -std=c++11 %<.cpp -Wall -o %< && time ./%< < %<.in; read n\""
         else
-            exec "!xterm -e \"g++ %<.cpp -Wall -o %< && time ./%<; read n\""
+            exec "!xterm -e \"g++ -std=c++11 %<.cpp -Wall -o %< && time ./%<; read n\""
         endif
     elseif (&filetype == 'python')
         if filereadable(expand('%<').'.in')
@@ -76,9 +76,9 @@ func Ubuntu_Run()
         endif
     else
         if filereadable(expand('%<').'.in')
-            exec "!xterm -e \"g++ %<.cpp -Wall -o %< && time ./%< < %<.in; read n\""
+            exec "!xterm -e \"g++ -std=c++11 %<.cpp -Wall -o %< && time ./%< < %<.in; read n\""
         else
-            exec "!xterm -e \"g++ %<.cpp -Wall -o %< && time ./%<; read n\""
+            exec "!xterm -e \"g++ -std=c++11 %<.cpp -Wall -o %< && time ./%<; read n\""
         endif
     endif
 endfunc
