@@ -9,6 +9,7 @@ syn on
 colo desert
 filetype indent on
 se ru nu ar sw=4 ts=4 softtabstop=4 noswf et sta nowrap ww=<,>,[,] gfn=Consolas:h11
+se foldmethod=indent
 se hlsearch
 autocmd BufEnter * lcd %:p:h
 map <c-t> :tabnew<CR>
