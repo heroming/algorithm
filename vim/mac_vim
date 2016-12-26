@@ -1,0 +1,181 @@
+"Version: 1.0 BY HEROMING
+"source $VIMRUNTIME/mswin.vim
+"behave mswin
+
+cd ~/code
+
+se hlsearch
+se foldmethod=manual
+se ru nu ar sw=4 ts=4 softtabstop=4 noswf et sta nowrap ww=<,>,[,]
+se guifont=guifont=Monaco:h13
+set printoptions=syntax:n,number:y,portrait:y
+
+map o o<left><right>
+imap <c-d> <c-o>dd
+imap <cr> <cr><left><right>
+imap <c-]> {<cr>}<c-o>O<left><right>
+map <c-a> :w !pbcopy<cr><cr>
+map <c-t> :tabnew<cr>
+
+syn on
+colo default
+filetype indent on
+autocmd BufEnter * lcd %:p:h
+
+map<f1> :normal ^<cr>
+map <f2> :call SetTitle()<CR>Gkkk
+map<f5> :call AddComment()<cr>
+map <f5> :call Mac_Run()<CR><CR>
+noremap <f6> =a{
+map<F9> :resize +1<cr>
+map<F10> :resize -1<cr>
+
+func Mac_Run()
+    exec 'update'
+    if (&filetype == 'cpp')
+        if filereadable(expand('%<').'.in')
+            exec "!g++ -std=c++11 %<.cpp -Wall -o %< && time ./%< < %<.in; read n"
+        else
+            exec "!g++ -std=c++11 %<.cpp -Wall -o %< && time ./%<; read n"
+        endif
+    elseif (&filetype == 'python')
+        if filereadable(expand('%<').'.in')
+            exec "!time python %<.py < %<.in; read n"
+        else
+            exec "!time python %<.py"
+        endif
+    else
+        if filereadable(expand('%<').'.in')
+            exec "!g++ -std=c++11 %<.cpp -Wall -o %< && time ./%< < %<.in; read n"
+        else
+            exec "!g++ -std=c++11 %<.cpp -Wall -o %< && time ./%<"
+        endif
+    endif
+endfunc
+
+func SetTitle()
+    if (&filetype == 'cpp')
+        normal ggdG
+        let l = 0
+        let l = l + 1 | call setline(l, '/*')
+        let l = l + 1 | call setline(l, ' * Author:heroming')
+        let l = l + 1 | call setline(l, ' * File:'.expand('%'))
+        let l = l + 1 | call setline(l, ' * Time:'.strftime('%Y/%m/%d %I:%M:%S'))
+        let l = l + 1 | call setline(l, ' */')
+        let l = l + 1 | call setline(l, '#include <vector>')
+        let l = l + 1 | call setline(l, '#include <list>')
+        let l = l + 1 | call setline(l, '#include <set>')
+        let l = l + 1 | call setline(l, '#include <map>')
+        let l = l + 1 | call setline(l, '#include <deque>')
+        let l = l + 1 | call setline(l, '#include <queue>')
+        let l = l + 1 | call setline(l, '#include <stack>')
+        let l = l + 1 | call setline(l, '#include <bitset>')
+        let l = l + 1 | call setline(l, '#include <algorithm>')
+        let l = l + 1 | call setline(l, '#include <functional>')
+        let l = l + 1 | call setline(l, '#include <numeric>')
+        let l = l + 1 | call setline(l, '#include <utility>')
+        let l = l + 1 | call setline(l, '#include <sstream>')
+        let l = l + 1 | call setline(l, '#include <iostream>')
+        let l = l + 1 | call setline(l, '#include <string>')
+        let l = l + 1 | call setline(l, '#include <iomanip>')
+        let l = l + 1 | call setline(l, '#include <cstdio>')
+        let l = l + 1 | call setline(l, '#include <cmath>')
+        let l = l + 1 | call setline(l, '#include <cstdlib>')
+        let l = l + 1 | call setline(l, '#include <cstring>')
+        let l = l + 1 | call setline(l, '#include <ctime>')
+        let l = l + 1 | call setline(l, '#include <unordered_map>')
+        let l = l + 1 | call setline(l, 'using namespace std;')
+        
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, '#define px first')
+        let l = l + 1 | call setline(l, '#define py second')
+        let l = l + 1 | call setline(l, '#define pb push_back')
+        let l = l + 1 | call setline(l, '#define sz(v) ((int)(v).size())')
+        let l = l + 1 | call setline(l, '#define all(v) (v).begin(), (v).end()')
+        let l = l + 1 | call setline(l, '#define clr(v, e) memset(v, e, sizeof(v))')
+        let l = l + 1 | call setline(l, '#define rep(it, v) for (auto it : v)')
+        let l = l + 1 | call setline(l, '#define forn(i, n) for (int i = 0; i < (n); ++ i)')
+        let l = l + 1 | call setline(l, '#define form(i, a, b) for (int i = (a); i <= (b); ++ i)')
+        let l = l + 1 | call setline(l, '#define forv(i, v) for (int i = 0; i < sz(v); ++ i)')
+        let l = l + 1 | call setline(l, '#define iter(it, v) for (auto it = v.begin(); it != v.end(); ++ it)')
+        
+        "let l = l + 1 | call setline(l, '')
+        "let l = l + 1 | call setline(l, '#define sqr(x) ((x) * (x))')
+        "let l = l + 1 | call setline(l, '#define lowbit(x) ((x) & (-(x)))')
+        "let l = l + 1 | call setline(l, '#define FOR(it, v) for (__typeof((v).begin()) it = (v).begin(); it != (v).end(); ++ it)')
+        
+        "let l = l + 1 | call setline(l, '')
+        "let l = l + 1 | call setline(l, 'const double pi = acos(-1.0);')
+        "let l = l + 1 | call setline(l, 'const double eps = 1e-8;')
+        
+        "let l = l + 1 | call setline(l, 'typedef unsigned long long ulint;')
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, 'typedef long long lint;')
+        let l = l + 1 | call setline(l, 'typedef vector<int> vint;')
+        let l = l + 1 | call setline(l, 'typedef vector<string> vstring;')
+        let l = l + 1 | call setline(l, 'typedef pair<int, int> pint;')
+        let l = l + 1 | call setline(l, 'typedef vector<lint> vlint;')
+        let l = l + 1 | call setline(l, 'typedef vector<pint> vpint;')
+        
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, 'int main() {')
+        let l = l + 1 | call setline(l, '    return 0;')
+        let l = l + 1 | call setline(l, '}')
+    elseif (&filetype == 'python')
+        normal ggdG
+        let l = 0
+        let l = l + 1 | call setline(l, '#!/usr/bin/python')
+        let l = l + 1 | call setline(l, '# -*- coding: utf-8 -*-')
+        let l = l + 1 | call setline(l, "'''")
+        let l = l + 1 | call setline(l, ' * Author:heroming')
+        let l = l + 1 | call setline(l, ' * File:'.expand('%'))
+        let l = l + 1 | call setline(l, ' * Time:'.strftime('%Y/%m/%d %I:%M:%S'))
+        let l = l + 1 | call setline(l, "'''")
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, "if __name__ == '__main__' :")
+        let l = l + 1 | call setline(l, '')
+    elseif (&filetype == 'java')
+        normal ggdG
+        let l = 0
+        let l = l + 1 | call setline(l, '/*')
+        let l = l + 1 | call setline(l, ' * Author:heroming')
+        let l = l + 1 | call setline(l, ' * File:'.expand('%'))
+        let l = l + 1 | call setline(l, ' * Time:'.strftime('%Y/%m/%d %I:%M:%S'))
+        let l = l + 1 | call setline(l, ' */')
+        let l = l + 1 | call setline(l, 'import java.io.*;')
+        let l = l + 1 | call setline(l, 'import java.util.*;')
+        let l = l + 1 | call setline(l, 'import java.math.*;')
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, 'public class Main {')
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, '   public static void main(String[] args) {')
+        let l = l + 1 | call setline(l, '       Scanner sc = new Scanner(System.in);')
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, '       sc.close();')
+        let l = l + 1 | call setline(l, '   }')
+        let l = l + 1 | call setline(l, '}')
+    endif
+    exec 'update'
+endfunc
+
+func AddComment()
+    if (&filetype == 'cpp')
+        if matchstr(getline('.'), '[^ ]') == '/'
+            normal ^xx
+        elseif matchstr(getline('.'), '[^ ]') != ''
+            normal ^i//
+        endif
+    elseif (&filetype == 'python')
+        if matchstr(getline('.'), '[^ ]') == '#'
+            normal ^x
+        elseif matchstr(getline('.'), '[^ ]') != ''
+            normal ^i#
+        endif
+    elseif (&filetype == 'java')
+        if matchstr(getline('.'), '[^ ]') == '/'
+            normal ^xx
+        elseif matchstr(getline('.'), '[^ ]') != ''
+            normal ^i//
+        endif
+    endif
+endfunc
