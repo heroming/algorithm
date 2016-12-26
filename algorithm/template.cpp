@@ -299,17 +299,17 @@ void prepare_dfs(int u, int e)
 
 void prepare()
 {
-        P[1] = -1;
-        memset(visit, 0, sizeof(visit));
-        prepare_dfs(1, 0);
-        memset(S, -1, sizeof(S));
+    P[1] = -1;
+    memset(visit, 0, sizeof(visit));
+    prepare_dfs(1, 0);
+    memset(S, -1, sizeof(S));
+    for (int i = 1; i <= n; ++ i)
+        S[i][0] = P[i];
+    for (int j = 1; 1 << j < n; ++ j)
         for (int i = 1; i <= n; ++ i)
-                S[i][0] = P[i];
-        for (int j = 1; 1 << j < n; ++ j)
-                for (int i = 1; i <= n; ++ i)
-                        if (S[i][j - 1] != -1)
-                                S[i][j] = S[S[i][j - 1]][j - 1];
-        memset(W, 0, sizeof(W));
+            if (S[i][j - 1] != -1)
+                S[i][j] = S[S[i][j - 1]][j - 1];
+    memset(W, 0, sizeof(W));
 }
 
 int LCA(int a, int b)
