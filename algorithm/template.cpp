@@ -780,7 +780,7 @@ Point interact(const Point &A, const Point &B, const Point &C, const Point &D)
 }
 
 数论
-1.	两个数p, q，如果gcd(p, q) == 1，那么px + qy最大不能表示的数是pq – p – q, 若gcd(p, q) != 1，那么为无穷大。
+1.	两个数p, q，如果gcd(p, q) == 1，那么当x,y为正整数时，px + qy最大不能表示的数是pq – p – q, 若gcd(p, q) != 1，那么为无穷大。
 
 2.欧拉函数：
 欧拉定理：设m > 1, gcd(a, m) == 1, 则a^φ(m) % m == 1;
@@ -816,6 +816,10 @@ N = (A1 + A2 + … + Am) / m;
 其中，Ai指第i种置换的方式，n指置换方式的总数。
 Ai形如： X1^a1 * X2^a2 * X3 * … * Xm^am，m为物品总数，a1,a2…am分别为循环长度为1, 2, ..m的环的个数。
 旋转的情况中，当旋转的个数k时，循环节的个数为gcd(k, N).
+
+5.贝祖等式
+对于等式ax+by=z，若c为a,b的最大公约数，等式有整数解当且仅当z为c的倍数。
+
 
 
 
