@@ -7,7 +7,7 @@ cd ~/code
 se hlsearch
 se foldmethod=manual
 se ru nu ar sw=4 ts=4 softtabstop=4 noswf et sta nowrap ww=<,>,[,]
-se guifont=guifont=Monaco:h13
+se guifont=Monaco:h13
 set printoptions=syntax:n,number:y,portrait:y
 
 map o o<left><right>
