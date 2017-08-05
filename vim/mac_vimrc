@@ -24,6 +24,7 @@ syn on
 colo default
 filetype indent on
 autocmd BufEnter * lcd %:p:h
+autocmd BufWritePre *.* kz|:%s/^\s\+$//e|'z
 
 map <F1> :normal ^<cr>
 map <F2> :call SetTitle()<cr>Gkkk
@@ -43,6 +44,18 @@ func Mac_Run()
             exec "!g++ -std=c++11 %<.cpp -Wall -o %< && time ./%<; read n"
         endif
     elseif (&filetype == 'python')
+        if filereadable(expand('%<').'.in')
+            exec "!time python %<.py < %<.in; read n"
+        else
+            exec "!time python %<.py; read n"
+        endif
+    elseif (&filetype == 'java')
+        if filereadable(expand('%<').'.in')
+            exec "!javac %<.java && time java %< < %<.in; read n"
+        else
+            exec "!javac %<.java && time java %<; read n"
+        endif
+    elseif (&filetype == 'scala')
         if filereadable(expand('%<').'.in')
             exec "!time python %<.py < %<.in; read n"
         else
@@ -89,7 +102,7 @@ func SetTitle()
         let l = l + 1 | call setline(l, '#include <ctime>')
         let l = l + 1 | call setline(l, '#include <unordered_map>')
         let l = l + 1 | call setline(l, 'using namespace std;')
-        
+
         let l = l + 1 | call setline(l, '')
         let l = l + 1 | call setline(l, '#define px first')
         let l = l + 1 | call setline(l, '#define py second')
@@ -104,16 +117,16 @@ func SetTitle()
         let l = l + 1 | call setline(l, '#define rform(i, a, b) for (int i = (b); i >= (a); -- i)')
         let l = l + 1 | call setline(l, '#define forv(i, v) for (int i = 0; i < sz(v); ++ i)')
         let l = l + 1 | call setline(l, '#define iter(it, v) for (auto it = v.begin(); it != v.end(); ++ it)')
-        
+
         "let l = l + 1 | call setline(l, '')
         "let l = l + 1 | call setline(l, '#define sqr(x) ((x) * (x))')
         "let l = l + 1 | call setline(l, '#define lowbit(x) ((x) & (-(x)))')
         "let l = l + 1 | call setline(l, '#define FOR(it, v) for (__typeof((v).begin()) it = (v).begin(); it != (v).end(); ++ it)')
-        
+
         "let l = l + 1 | call setline(l, '')
         "let l = l + 1 | call setline(l, 'const double pi = acos(-1.0);')
         "let l = l + 1 | call setline(l, 'const double eps = 1e-8;')
-        
+
         "let l = l + 1 | call setline(l, 'typedef unsigned long long ulint;')
         let l = l + 1 | call setline(l, '')
         let l = l + 1 | call setline(l, 'typedef long long lint;')
@@ -122,7 +135,7 @@ func SetTitle()
         let l = l + 1 | call setline(l, 'typedef pair<int, int> pint;')
         let l = l + 1 | call setline(l, 'typedef vector<lint> vlint;')
         let l = l + 1 | call setline(l, 'typedef vector<pint> vpint;')
-        
+
         let l = l + 1 | call setline(l, '')
         let l = l + 1 | call setline(l, 'int main() {')
         let l = l + 1 | call setline(l, '    return 0;')
@@ -160,6 +173,17 @@ func SetTitle()
         let l = l + 1 | call setline(l, '       sc.close();')
         let l = l + 1 | call setline(l, '   }')
         let l = l + 1 | call setline(l, '}')
+    elseif (&filetype == 'scala')
+        normal ggdG
+        let l = 0
+        let l = l + 1 | call setline(l, '/*')
+        let l = l + 1 | call setline(l, ' * Author:heroming')
+        let l = l + 1 | call setline(l, ' * File:'.expand('%'))
+        let l = l + 1 | call setline(l, ' * Time:'.strftime('%Y/%m/%d %I:%M:%S'))
+        let l = l + 1 | call setline(l, ' */')
+        let l = l + 1 | call setline(l, 'object Main {')
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, '}')
     endif
     exec 'update'
 endfunc
@@ -167,21 +191,39 @@ endfunc
 func AddComment()
     if (&filetype == 'cpp')
         if matchstr(getline('.'), '[^ ]') == '/'
-            normal ^xx
+            normal ^xxj^
         elseif matchstr(getline('.'), '[^ ]') != ''
             normal ^i//
+            normal j^
+        else
+            normal j^
         endif
     elseif (&filetype == 'python')
         if matchstr(getline('.'), '[^ ]') == '#'
-            normal ^x
+            normal ^xj^
         elseif matchstr(getline('.'), '[^ ]') != ''
             normal ^i#
+            normal j^
+        else
+            normal j^
         endif
     elseif (&filetype == 'java')
         if matchstr(getline('.'), '[^ ]') == '/'
-            normal ^xx
+            normal ^xxj^
         elseif matchstr(getline('.'), '[^ ]') != ''
             normal ^i//
+            normal j^
+        else
+            normal j^
+        endif
+     elseif (&filetype == 'scala')
+        if matchstr(getline('.'), '[^ ]') == '/'
+            normal ^xxj^
+        elseif matchstr(getline('.'), '[^ ]') != ''
+            normal ^i//
+            normal j^
+        else
+            normal j^
         endif
     endif
 endfunc
