@@ -42,7 +42,11 @@ func Run()
     elseif (&filetype == 'javascript')
         exec '!start cmd /c node %<.js & pause'
     elseif (expand('%:e') == 'scala')
-        exec '!start cmd /c scala %<.scala & pause'
+        if filereadable(expand('%<').'.in')
+            exec '!start cmd /c _run_scala %<.scala < %<.in & pause'
+        else
+            exec '!start cmd /c _run_scala %<.scala & pause'
+        endif
     else
         if filereadable(expand('%<').'.in')
             exec '!start cmd /c _run_cpp %< < %<.in & pause'
@@ -234,26 +238,52 @@ func AddComment()
     if (&filetype == 'cpp')
         if matchstr(getline('.'), '[^ ]') == '/'
             normal ^xx
+            normal j^
         elseif matchstr(getline('.'), '[^ ]') != ''
             normal ^i//
+            normal j^
+        else
+            normal j^
         endif
     elseif (&filetype == 'python')
         if matchstr(getline('.'), '[^ ]') == '#'
             normal ^x
+            normal j^
         elseif matchstr(getline('.'), '[^ ]') != ''
             normal ^i#
+            normal j^
+        else
+            normal j^
         endif
     elseif (&filetype == 'java')
         if matchstr(getline('.'), '[^ ]') == '/'
             normal ^xx
+            normal j^
         elseif matchstr(getline('.'), '[^ ]') != ''
             normal ^i//
+            normal j^
+        else
+            normal j^
+        endif
+    elseif (&filetype == 'scala')
+        if matchstr(getline('.'), '[^ ]') == '/'
+            normal ^xx
+            normal j^
+        elseif matchstr(getline('.'), '[^ ]') != ''
+            normal ^i//
+            normal j^
+        else
+            normal j^
         endif
     elseif (&filetype == 'matlab')
         if matchstr(getline('.'), '[^ ]') == '%'
             normal ^x
+            normal j^
         elseif matchstr(getline('.'), '[^ ]') != ''
             normal ^i%
+            normal j^
+        else
+            normal j^
         endif
     endif
 endfunc
