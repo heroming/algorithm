@@ -55,11 +55,11 @@ func Mac_Run()
         else
             exec "!javac %<.java && time java %<; read n"
         endif
-    elseif (&filetype == 'scala')
+    elseif (expand('%:e') == 'scala')
         if filereadable(expand('%<').'.in')
-            exec "!time python %<.py < %<.in; read n"
+            exec "!time scala %<.scala < %<.in; read n"
         else
-            exec "!time python %<.py; read n"
+            exec "!time scala %<.scala; read n"
         endif
     else
         if filereadable(expand('%<').'.in')
