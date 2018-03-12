@@ -167,6 +167,17 @@ func SetTitle()
         let l = l + 1 | call setline(l, '        sc.close();')
         let l = l + 1 | call setline(l, '    }')
         let l = l + 1 | call setline(l, '}')
+    elseif (&filetype == 'sh')
+        normal ggdG
+        let l = 0
+        let l = l + 1 | call setline(l, '#!/bin/bash')
+        let l = l + 1 | call setline(l, '# -*- coding: utf-8 -*-')
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, '# Author:heroming')
+        let l = l + 1 | call setline(l, '# File:'.expand('%'))
+        let l = l + 1 | call setline(l, '# Time:'.strftime('%c'))
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, '')
     endif
     exec 'update'
 endfunc
@@ -281,6 +292,16 @@ func AddComment()
             normal j^
         elseif matchstr(getline('.'), '[^ ]') != ''
             normal ^i%
+            normal j^
+        else
+            normal j^
+        endif
+    elseif (&filetype == 'sh')
+        if matchstr(getline('.'), '[^ ]') == '#'
+            normal ^x
+            normal j^
+        elseif matchstr(getline('.'), '[^ ]') != ''
+            normal ^i#
             normal j^
         else
             normal j^

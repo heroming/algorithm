@@ -118,16 +118,9 @@ func SetTitle()
         let l = l + 1 | call setline(l, '#define forv(i, v) for (int i = 0; i < sz(v); ++ i)')
         let l = l + 1 | call setline(l, '#define iter(it, v) for (auto it = v.begin(); it != v.end(); ++ it)')
 
-        "let l = l + 1 | call setline(l, '')
-        "let l = l + 1 | call setline(l, '#define sqr(x) ((x) * (x))')
-        "let l = l + 1 | call setline(l, '#define lowbit(x) ((x) & (-(x)))')
-        "let l = l + 1 | call setline(l, '#define FOR(it, v) for (__typeof((v).begin()) it = (v).begin(); it != (v).end(); ++ it)')
-
-        "let l = l + 1 | call setline(l, '')
         "let l = l + 1 | call setline(l, 'const double pi = acos(-1.0);')
         "let l = l + 1 | call setline(l, 'const double eps = 1e-8;')
 
-        "let l = l + 1 | call setline(l, 'typedef unsigned long long ulint;')
         let l = l + 1 | call setline(l, '')
         let l = l + 1 | call setline(l, 'typedef long long lint;')
         let l = l + 1 | call setline(l, 'typedef vector<int> vint;')
@@ -184,6 +177,16 @@ func SetTitle()
         let l = l + 1 | call setline(l, 'object Main {')
         let l = l + 1 | call setline(l, '')
         let l = l + 1 | call setline(l, '}')
+    elseif (&filetype == 'sh')
+        normal ggdG
+        let l = 0
+        let l = l + 1 | call setline(l, '#!/bin/bash')
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, '# Author:heroming')
+        let l = l + 1 | call setline(l, '# File:'.expand('%'))
+        let l = l + 1 | call setline(l, '# Time:'.strftime('%c'))
+        let l = l + 1 | call setline(l, '')
+        let l = l + 1 | call setline(l, '')
     endif
     exec 'update'
 endfunc
@@ -221,6 +224,16 @@ func AddComment()
             normal ^xxj^
         elseif matchstr(getline('.'), '[^ ]') != ''
             normal ^i//
+            normal j^
+        else
+            normal j^
+        endif
+    elseif (&filetype == 'sh')
+        if matchstr(getline('.'), '[^ ]') == '#'
+            normal ^x
+            normal j^
+        elseif matchstr(getline('.'), '[^ ]') != ''
+            normal ^i#
             normal j^
         else
             normal j^
