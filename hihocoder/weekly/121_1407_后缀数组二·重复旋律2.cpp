@@ -89,7 +89,7 @@ void suffix_array() {
 }
 
 bool check(const int w) {
-    int mi = 0, ma = 0;
+    int mi = n, ma = 0;
     form (i, 1, n) {
         if (w <= height[i]) {
             mi = min(mi, min(sa[i - 1], sa[i]));
