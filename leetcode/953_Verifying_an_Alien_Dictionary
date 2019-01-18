@@ -1,0 +1,15 @@
+object Solution {
+
+  def isAlienSorted(words: Array[String], order: String): Boolean = {
+    val s = "abcdefghijklmnopqrstuvwxyz"
+    val dic = (0 until order.length).map(k => (order.charAt(k), s.charAt(k))).toMap
+    val ret = words.map(s => {
+      s.map(dic(_)).toString
+    })
+
+    (1 until ret.length).foreach(k => {
+      if (ret(k) < ret(k - 1)) return false
+    })
+    true
+  }
+}

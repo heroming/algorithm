@@ -1,0 +1,10 @@
+object Solution {
+
+  def repeatedNTimes(s: Array[Int]): Int = {
+    (2 until s.length).foreach(k => {
+      if (s(k) == s(k - 1) || s(k) == s(k - 2))
+        return s(k)
+    })
+    s(0)
+  }
+}
